@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layoutAnimation
+    xmlns:androidx="http://schemas.android.com/apk/res/android"
+    androidx:animation="@anim/item_animation_fall_down"
+    androidx:delay="15%"
+    androidx:animationOrder="normal"
+    />
