@@ -35,6 +35,7 @@ import android.view.View
 import com.androidadvance.topsnackbar.TSnackbar
 import com.example.signingoogle.R
 import com.example.signingoogle.utilities.UseFull
+import kotlinx.android.synthetic.main.activity_start_quiz.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
 
 
@@ -112,21 +113,16 @@ class Categories : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
     }
 
 
-
-
-
-
-
     private fun initUI() {
 
         obj_UsefullData = object : UseFull(applicationContext) {}
         quizDb = QuizDatabase.getInstance(applicationContext)!!
 
-
         service = ApiClient().getClient()?.create(ApiInterface::class.java)
 
         toolbar_title.typeface = obj_UsefullData.Aller_Rg()
         toolbar_title.text = "Category"
+
 
 
     }
@@ -152,7 +148,6 @@ class Categories : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
                             for(item:CategoryResponse.TriviaCategory in categoryList.listIterator()){
 
                                 cate = Category(null,item.name,item.id)
-
 
                                 temp.add(cate)
 

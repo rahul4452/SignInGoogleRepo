@@ -14,15 +14,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".taketest.StartQuiz"/>
+        <activity android:name=".taketest.QuizActivity"></activity>
+        <activity android:name=".taketest.StartQuiz" />
         <activity
             android:name=".taketest.Categories"
-            android:label="@string/title_activity_categories" />
-
-        <!--<meta-data-->
-            <!--android:name="android.app.searchable"-->
-            <!--android:resource="@xml/searchable" />-->
-
+            android:label="@string/title_activity_categories" /> <!-- <meta-data -->
+        <!-- android:name="android.app.searchable" -->
+        <!-- android:resource="@xml/searchable" /> -->
         <activity android:name=".utilities.BaseActivity" /> <!-- <meta-data -->
         <activity android:name=".AfterLogin" />
         <activity

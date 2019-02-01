@@ -45,13 +45,22 @@ class CategoryAdapter(items: ArrayList<Category>, val context: Context) : Recycl
 
             override fun onCustomItemClickListener(view: View, pos: Int) {
 
+
                 var cid = categoryList[pos].category_id
 
-                val intent1 = Intent(ctx, StartQuiz::class.java)
-                intent1.putExtra("category_id",cid)
-                ctx.startActivity(intent1)
-            }
+                if(cid==null){
 
+                    var categoryName = categoryList[pos].category_name
+                    val intent2 = Intent(ctx, StartQuiz::class.java)
+                    intent2.putExtra("categoryName", categoryName)
+                    ctx.startActivity(intent2)
+
+                }else {
+                    val intent1 = Intent(ctx, StartQuiz::class.java)
+                    intent1.putExtra("category_id", cid)
+                    ctx.startActivity(intent1)
+                }
+            }
         })
 
 
