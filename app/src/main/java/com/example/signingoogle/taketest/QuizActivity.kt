@@ -10,7 +10,6 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.androidadvance.topsnackbar.TSnackbar
 import com.example.signingoogle.API.ApiClient
 import com.example.signingoogle.API.ApiInterface
@@ -28,18 +27,31 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.Button
+import androidx.appcompat.app.AlertDialog
+import java.util.concurrent.TimeUnit
+
+import com.ankushgrover.hourglass.Hourglass
+
+
+
+
+
 class QuizActivity : AppCompatActivity() {
 
 
     private lateinit var objeUseFull: UseFull
     private lateinit var quizDb: QuizDatabase
     private var service: ApiInterface? = null
-    var pStatus = 0
+
     private lateinit var modal: Modal
     private val handler = Handler()
     private var quesNumber: String? = null
 
-
+    var isRunning = false
+    private lateinit var alertDialog: AlertDialog
     private var levelOfDifficulty: String? = null
 
     private var timeForQuiz: String? = null
@@ -70,54 +82,171 @@ class QuizActivity : AppCompatActivity() {
 
                 callApiForQuetion()
 
-               timeforQuiz()
+                timeforQuiz()
             }
 
 
         }
 
-
-//        Thread(Runnable {
-//                // TODO Auto-generated method stub
-//            while (pStatus < 100) {
-//                pStatus += 1
-//
-//                handler.post {
-//                    // TODO Auto-generated method stub
-//                    progressBar2.progress = pStatus
-//
-//                    progressBar2.progress = pStatus
-//
-//                }
-//                try {
-//                    // Sleep for 200 milliseconds.
-//                    // Just to display the progress slowly
-//                    Thread.sleep(200)
-//                } catch (e: InterruptedException) {
-//                    e.printStackTrace()
-//                }
-//
-//            }
-//        }).start()
     }
+
+    private lateinit var hourglass: Hourglass
 
     private fun timeforQuiz() {
 
-        val time : Long = timeForQuiz?.toLong() ?: -1
+        val numberOnly = timeForQuiz!!.replace("[^0-9]".toRegex(), "")
+
+        val time: Long = numberOnly?.toLong()
+
+        val mili: Long = TimeUnit.MINUTES.toMillis(time)
+
+        var pStatus = time
+
+
+         hourglass = object : Hourglass(mili, 1000) {
+            override fun onTimerTick(millisUntilFinished: Long) {
+                this@QuizActivity.isRunning = true
+                if(!alertDialog.isShowing){
+                    hourglass.resumeTimer()
+                }
+
+                val minutes = millisUntilFinished / 1000 / 60
+                val seconds = (millisUntilFinished / 1000 % 60)
 
 
 
-        var timer = object: CountDownTimer(time, 1000) {
-            override fun onTick(millisUntilFinished: Long) {
-                timeRemaining.text = "seconds remaining: " + millisUntilFinished / 1000
+                timeRemaining.text = String.format("%02d:%02d", minutes, seconds)
+
+                Thread(Runnable {
+
+                    while (pStatus > 0) {
+                        pStatus -= (millisUntilFinished / 1000).toInt()
+
+                        handler.post {
+
+                            progressBar2.progress = pStatus.toInt()
+
+                            progressBar2.progress = pStatus.toInt()
+
+                        }
+                        try {
+                            // Sleep for 200 milliseconds.
+                            // Just to display the progress slowly
+                            Thread.sleep(200)
+                        } catch (e: InterruptedException) {
+                            e.printStackTrace()
+                        }
+
+                    }
+
+                }).start()
+
             }
 
-            override fun onFinish() {
+            override fun onTimerFinish() {
+                this@QuizActivity.isRunning = false
+
 
             }
         }
 
-        timer.start()
+
+//        var timer = object : CountDownTimer(mili, 1000) {
+//
+//            override fun onTick(millisUntilFinished: Long) {
+//
+////                isRunning = true
+////                val minutes = millisUntilFinished / 1000 / 60
+////                val seconds = (millisUntilFinished / 1000 % 60)
+////
+////
+////
+////                timeRemaining.text = String.format("%02d:%02d", minutes, seconds)
+////
+////                Thread(Runnable {
+////
+////                    while (pStatus > 0) {
+////                        pStatus -= (millisUntilFinished / 1000).toInt()
+////
+////                        handler.post {
+////
+////                            progressBar2.progress = pStatus.toInt()
+////
+////                            progressBar2.progress = pStatus.toInt()
+////
+////                        }
+////                        try {
+////                            // Sleep for 200 milliseconds.
+////                            // Just to display the progress slowly
+////                            Thread.sleep(200)
+////                        } catch (e: InterruptedException) {
+////                            e.printStackTrace()
+////                        }
+////
+////                    }
+////
+////                }).start()
+//
+//            }
+//
+//            override fun onFinish() {
+////                isRunning = false
+//            }
+//        }
+//        timer.start()
+
+        hourglass.startTimer()
+    }
+
+
+    override fun onBackPressed() {
+
+        if (!isRunning) {
+            super.onBackPressed()
+        } else {
+
+
+
+            hourglass.pauseTimer()
+
+            val viewGroup = findViewById<ViewGroup>(android.R.id.content)
+
+            //then we will inflate the custom alert dialog xml that we created
+            val dialogView = LayoutInflater.from(this).inflate(R.layout.my_dialog, viewGroup, false)
+
+            //Now we need an AlertDialog.Builder object
+            val builder = AlertDialog.Builder(this)
+
+            //setting the view of the builder to our custom view that we already inflated
+            builder.setView(dialogView)
+
+            val dialogButton = dialogView.findViewById(R.id.buttonOk) as Button
+
+            val dialogCancalButton = dialogView.findViewById(R.id.buttonCancal) as Button
+
+            dialogButton.setOnClickListener {
+                if (alertDialog.isShowing) {
+                    alertDialog.dismiss()
+                    hourglass.resumeTimer()
+                }
+            }
+
+            dialogCancalButton.setOnClickListener {
+                if (alertDialog.isShowing) {
+                    alertDialog.dismiss()
+                    hourglass.stopTimer()
+                    finish()
+                }
+            }
+
+            //finally creating the alert dialog and displaying it
+            alertDialog = builder.create()
+            alertDialog.show()
+
+
+
+        }
+
     }
 
 
@@ -231,7 +360,6 @@ class QuizActivity : AppCompatActivity() {
         })
 
     }
-
 
 
     private fun setupUIQuizActivity() {

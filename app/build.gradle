@@ -83,5 +83,7 @@ dependencies {
 
     implementation 'com.github.tiagohm.MarkdownView:library:0.19.0'
 
+    implementation 'com.ankushgrover:Hourglass:2.0.0'
+
 }
 apply plugin: 'com.google.gms.google-services'

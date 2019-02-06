@@ -5,8 +5,13 @@ import android.graphics.Typeface
 import android.net.ConnectivityManager
 import androidx.appcompat.app.AlertDialog
 import android.R
-import android.widget.TextView
-import com.androidadvance.topsnackbar.TSnackbar
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+
+
+
+
 
 
 open class UseFull {
@@ -66,44 +71,5 @@ open class UseFull {
         dlgAlert.create().show()
 
     }
-
-
-//    fun make_alert(msg: String, is_success_msg: Boolean) {
-//        var msg = msg
-//
-//        if (msg.isEmpty()) {
-//            msg = _context.resources.getString(R.string.wrong)
-//        }
-//
-//        if (is_success_msg) {
-//
-//            val snackbar = TSnackbar.make(
-//                InitializeActivity.current_activity.findViewById(android.R.id.content),
-//                msg,
-//                TSnackbar.LENGTH_LONG
-//            )
-//            val snackbarView = snackbar.getView()
-//            snackbarView.setBackgroundColor(InitializeActivity.current_activity.getResources().getColor(R.color.success))
-//            val textView = snackbarView.findViewById(R.id.snackbar_text) as TextView
-//            textView.setTextColor(InitializeActivity.current_activity.getResources().getColor(R.color.white))
-//            textView.typeface = get_montserrat_regular()
-//            snackbar.show()
-//
-//        } else {
-//
-//            val snackbar = TSnackbar.make(
-//                InitializeActivity.current_activity.findViewById(android.R.id.content),
-//                msg,
-//                TSnackbar.LENGTH_LONG
-//            )
-//            val snackbarView = snackbar.getView()
-//            snackbarView.setBackgroundColor(InitializeActivity.current_activity.getResources().getColor(R.color.fail))
-//            val textView = snackbarView.findViewById(R.id.snackbar_text) as TextView
-//            textView.setTextColor(InitializeActivity.current_activity.getResources().getColor(R.color.white))
-//            textView.typeface = get_montserrat_regular()
-//            snackbar.show()
-//        }
-//    }
-
 
 }
