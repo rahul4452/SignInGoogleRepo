@@ -6,7 +6,7 @@ import android.content.SharedPreferences
 
 open class SaveData {
 
-    private lateinit var _context: Context
+    private var _context: Context
     private var shared: SharedPreferences? = null
     private val SHARED_NAME = "Shelf"
     private var edit: SharedPreferences.Editor? = null

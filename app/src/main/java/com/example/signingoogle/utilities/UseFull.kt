@@ -11,7 +11,7 @@ import com.androidadvance.topsnackbar.TSnackbar
 
 open class UseFull {
 
-    private lateinit var _context: Context
+    private var _context: Context
 
     // =============== Constructor ===================  //
     constructor(_context: Context) {

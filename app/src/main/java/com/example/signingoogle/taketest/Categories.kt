@@ -34,6 +34,7 @@ import android.widget.TextView
 import android.view.View
 import com.androidadvance.topsnackbar.TSnackbar
 import com.example.signingoogle.R
+
 import com.example.signingoogle.utilities.UseFull
 import kotlinx.android.synthetic.main.activity_start_quiz.*
 import kotlinx.android.synthetic.main.toolbar_layout.*
@@ -100,8 +101,9 @@ class Categories : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
 
                     category_adapter = CategoryAdapter((categoryList as ArrayList<Category>?)!!,this@Categories)
 
-
                     my_recycler_view.adapter = category_adapter
+
+
 
 
                     //Add a LayoutManager

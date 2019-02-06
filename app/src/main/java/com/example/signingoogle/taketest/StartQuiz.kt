@@ -34,7 +34,6 @@ class StartQuiz : AppCompatActivity(), View.OnClickListener {
     private lateinit var activityName: String
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start_quiz)
@@ -49,7 +48,6 @@ class StartQuiz : AppCompatActivity(), View.OnClickListener {
         setTimeForQuiz()
 
 
-
     }
 
     private fun initUI() {
@@ -61,15 +59,13 @@ class StartQuiz : AppCompatActivity(), View.OnClickListener {
 
         if (bundle != null) {
             activityId = bundle.getInt("category_id")
-            if(activityId==0){
+            if (activityId == 0) {
                 activityName = bundle.getString("categoryName")
             }
 
         }
 
         playnow.setOnClickListener(this)
-
-
 
 
     }
@@ -84,19 +80,15 @@ class StartQuiz : AppCompatActivity(), View.OnClickListener {
         difficultLevel.typeface = obj_UsefullData.Aller_bd()
 
 
-
-
-
-
         /** ======= Setting Up Toolbar Title getting =======
          *=======  Category Name From Database ============== **/
 
-        if(activityId==0) {
+        if (activityId == 0) {
 
             toolbar_title.typeface = obj_UsefullData.Aller_Rg()
             toolbar_title.text = activityName
 
-        }else{
+        } else {
             doAsync {
 
 
@@ -122,10 +114,10 @@ class StartQuiz : AppCompatActivity(), View.OnClickListener {
 
         // ======================= Spinner Drop down elements for Number Of Question ========================= //
         val categories = ArrayList<Int>()
-        categories.add(5)
         categories.add(10)
         categories.add(15)
         categories.add(20)
+        categories.add(25)
 
 
 //        // ================== Creating adapter for spinner =======================
@@ -137,7 +129,7 @@ class StartQuiz : AppCompatActivity(), View.OnClickListener {
 
         /** ================== Setting Up time for Quiz ================= **/
 
-        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
 
             }
@@ -145,44 +137,44 @@ class StartQuiz : AppCompatActivity(), View.OnClickListener {
             @SuppressLint("SetTextI18n")
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
 
-                var quizLevel : String = difficultLevel.text.toString()
+                var quizLevel: String = difficultLevel.text.toString()
 
-                if(quizLevel.equals("Easy")){
+                if (quizLevel.equals("easy")) {
 
-                    val seconds:Long = (categories[position] * 40).toLong()
+                    val seconds: Long = (categories[position] * 40).toLong()
 
                     val minutes = TimeUnit.SECONDS.toMinutes(seconds)
 
-                    if(minutes > 60 ){
-                        val hours : Long = TimeUnit.MINUTES.toHours(minutes)
+                    if (minutes > 60) {
+                        val hours: Long = TimeUnit.MINUTES.toHours(minutes)
                         timeQuiz.text = hours.toString() + "h"
-                    }else{
+                    } else {
                         timeQuiz.text = minutes.toString() + "m"
                     }
 
-                }else if(quizLevel.equals("Medium")){
+                } else if (quizLevel.equals("medium")) {
 
-                    val seconds:Long = (categories[position] * 60).toLong()
+                    val seconds: Long = (categories[position] * 60).toLong()
 
                     val minutes = TimeUnit.SECONDS.toMinutes(seconds)
 
-                    if(minutes > 60 ){
-                        val hours : Long = TimeUnit.MINUTES.toHours(minutes)
+                    if (minutes > 60) {
+                        val hours: Long = TimeUnit.MINUTES.toHours(minutes)
                         timeQuiz.text = hours.toString() + "h"
-                    }else{
+                    } else {
                         timeQuiz.text = minutes.toString() + "m"
                     }
 
-                }else if(quizLevel.equals("Hard")){
+                } else if (quizLevel.equals("hard")) {
 
-                    val seconds:Long = (categories[position] * 90).toLong()
+                    val seconds: Long = (categories[position] * 90).toLong()
 
                     val minutes = TimeUnit.SECONDS.toMinutes(seconds)
 
-                    if(minutes > 60 ){
-                        val hours : Long = TimeUnit.MINUTES.toHours(minutes)
+                    if (minutes > 60) {
+                        val hours: Long = TimeUnit.MINUTES.toHours(minutes)
                         timeQuiz.text = hours.toString() + " h"
-                    }else{
+                    } else {
                         timeQuiz.text = minutes.toString() + " m"
                     }
 
@@ -196,60 +188,60 @@ class StartQuiz : AppCompatActivity(), View.OnClickListener {
 
     @SuppressLint("SetTextI18n")
     private fun setTimeForQuiz() {
-        var quizLevel : String = difficultLevel.text.toString()
+        var quizLevel: String = difficultLevel.text.toString()
 
-        var quizQues : String = spinner.selectedItem.toString()
+        var quizQues: String = spinner.selectedItem.toString()
 
 
 
-        if(quizLevel.equals("Easy")){
+        if (quizLevel.equals("easy")) {
 
-            val seconds:Long = (quizQues.toInt() * 40).toLong()
+            val seconds: Long = (quizQues.toInt() * 40).toLong()
 
             val minutes = TimeUnit.SECONDS.toMinutes(seconds)
 
-            if(minutes > 60 ){
-                val hours : Long = TimeUnit.MINUTES.toHours(minutes)
+            if (minutes > 60) {
+                val hours: Long = TimeUnit.MINUTES.toHours(minutes)
                 timeQuiz.text = hours.toString() + "h"
-            }else{
+            } else {
                 timeQuiz.text = minutes.toString() + "m"
             }
 
-        }else if(quizLevel.equals("Medium")){
+        } else if (quizLevel.equals("medium")) {
 
-            val seconds:Long = (quizQues.toInt() * 60).toLong()
+            val seconds: Long = (quizQues.toInt() * 60).toLong()
 
             val minutes = TimeUnit.SECONDS.toMinutes(seconds)
 
-            if(minutes > 60 ){
-                val hours : Long = TimeUnit.MINUTES.toHours(minutes)
+            if (minutes > 60) {
+                val hours: Long = TimeUnit.MINUTES.toHours(minutes)
                 timeQuiz.text = hours.toString() + "h"
-            }else{
+            } else {
                 timeQuiz.text = minutes.toString() + "m"
             }
 
-        }else if(quizLevel.equals("Hard")){
+        } else if (quizLevel.equals("hard")) {
 
-            val seconds:Long = (quizQues.toInt() * 90).toLong()
+            val seconds: Long = (quizQues.toInt() * 90).toLong()
 
             val minutes = TimeUnit.SECONDS.toMinutes(seconds)
 
-            if(minutes > 60 ){
-                val hours : Long = TimeUnit.MINUTES.toHours(minutes)
+            if (minutes > 60) {
+                val hours: Long = TimeUnit.MINUTES.toHours(minutes)
                 timeQuiz.text = hours.toString() + "h"
-            }else{
+            } else {
                 timeQuiz.text = minutes.toString() + "m"
             }
 
         }
     }
 
-    private fun showDialog(){
+    private fun showDialog() {
         // Late initialize an alert dialog object
-        lateinit var dialog:AlertDialog
+        lateinit var dialog: AlertDialog
 
         // Initialize an array of colors
-        val array = arrayOf("Easy","Medium","Hard")
+        val array = arrayOf("easy", "medium", "hard")
 
         // Initialize a new instance of alert dialog builder object
         val builder = AlertDialog.Builder(this)
@@ -258,9 +250,8 @@ class StartQuiz : AppCompatActivity(), View.OnClickListener {
         builder.setTitle("Select Difficulty Level")
 
 
-
         // Set the single choice items for alert dialog with initial selection
-        builder.setSingleChoiceItems(array,-1) { _, which->
+        builder.setSingleChoiceItems(array, -1) { _, which ->
 
             // Get the dialog selected item
             val level = array[which]
@@ -268,55 +259,53 @@ class StartQuiz : AppCompatActivity(), View.OnClickListener {
             try {
 
                 difficultLevel.text = level
-                var quizQues : String = spinner.selectedItem.toString()
+                var quizQues: String = spinner.selectedItem.toString()
 
 
 
-                if(level.equals("Easy")){
+                if (level.equals("easy")) {
 
-                    val seconds:Long = (quizQues.toInt() * 40).toLong()
+                    val seconds: Long = (quizQues.toInt() * 40).toLong()
 
                     val minutes = TimeUnit.SECONDS.toMinutes(seconds)
 
-                    if(minutes > 60 ){
-                        val hours : Long = TimeUnit.MINUTES.toHours(minutes)
+                    if (minutes > 60) {
+                        val hours: Long = TimeUnit.MINUTES.toHours(minutes)
                         timeQuiz.text = hours.toString() + "h"
-                    }else{
+                    } else {
                         timeQuiz.text = minutes.toString() + "m"
                     }
 
-                }else if(level.equals("Medium")){
+                } else if (level.equals("medium")) {
 
-                    val seconds:Long = (quizQues.toInt() * 60).toLong()
+                    val seconds: Long = (quizQues.toInt() * 60).toLong()
 
                     val minutes = TimeUnit.SECONDS.toMinutes(seconds)
 
-                    if(minutes > 60 ){
-                        val hours : Long = TimeUnit.MINUTES.toHours(minutes)
+                    if (minutes > 60) {
+                        val hours: Long = TimeUnit.MINUTES.toHours(minutes)
                         timeQuiz.text = hours.toString() + "h"
-                    }else{
+                    } else {
                         timeQuiz.text = minutes.toString() + "m"
                     }
 
-                }else if(level.equals("Hard")){
+                } else if (level.equals("hard")) {
 
-                    val seconds:Long = (quizQues.toInt() * 90).toLong()
+                    val seconds: Long = (quizQues.toInt() * 90).toLong()
 
                     val minutes = TimeUnit.SECONDS.toMinutes(seconds)
 
-                    if(minutes > 60 ){
-                        val hours : Long = TimeUnit.MINUTES.toHours(minutes)
+                    if (minutes > 60) {
+                        val hours: Long = TimeUnit.MINUTES.toHours(minutes)
                         timeQuiz.text = hours.toString() + " h"
-                    }else{
+                    } else {
                         timeQuiz.text = minutes.toString() + " m"
                     }
 
                 }
 
 
-
-
-            }catch (e:IllegalArgumentException){
+            } catch (e: IllegalArgumentException) {
 
                 e.printStackTrace()
 
@@ -337,32 +326,24 @@ class StartQuiz : AppCompatActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
 
-        when(v?.id){
+        when (v?.id) {
 
             R.id.difficultLevel -> {
                 showDialog()
             }
 
-            R.id.playnow ->{
+            R.id.playnow -> {
                 val quizActivity = Intent(this@StartQuiz, QuizActivity::class.java)
-                quizActivity.putExtra("question",spinner.selectedItem.toString())
-                quizActivity.putExtra("difficulty",difficultLevel.text.toString())
-                quizActivity.putExtra("time",timeQuiz.text.toString())
-                quizActivity.putExtra("category",toolbar_title.text.toString())
+                quizActivity.putExtra("question", spinner.selectedItem.toString())
+                quizActivity.putExtra("difficulty", difficultLevel.text.toString())
+                quizActivity.putExtra("time", timeQuiz.text.toString())
+                quizActivity.putExtra("category", toolbar_title.text.toString())
                 startActivity(quizActivity)
             }
 
 
         }
     }
-
-
-
-
-
-
-
-
 
 
 }

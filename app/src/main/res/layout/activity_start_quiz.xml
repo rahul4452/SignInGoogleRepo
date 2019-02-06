@@ -99,7 +99,7 @@
                     style="@style/margin"
                     android:gravity="center"
 
-                    android:text="Easy"
+                    android:text="easy"
                     android:textColor="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />

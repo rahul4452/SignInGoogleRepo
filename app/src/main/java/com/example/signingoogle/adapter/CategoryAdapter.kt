@@ -13,7 +13,6 @@ import com.example.signingoogle.taketest.StartQuiz
 import com.example.signingoogle.utilities.UseFull
 
 
-
 class CategoryAdapter(items: ArrayList<Category>, val context: Context) : RecyclerView.Adapter<ViewHolder>() {
 
     var categoryList: ArrayList<Category> = items
@@ -41,21 +40,21 @@ class CategoryAdapter(items: ArrayList<Category>, val context: Context) : Recycl
         holder.categoryName.text = categoryList[position].category_name
         holder.categoryName.typeface = obj_UsefullData.Aller_bd()
 
-        holder.setOnCustomItemClickListener(object :CustomItemClickListner{
+        holder.setOnCustomItemClickListener(object : CustomItemClickListner {
 
             override fun onCustomItemClickListener(view: View, pos: Int) {
 
 
                 var cid = categoryList[pos].category_id
 
-                if(cid==null){
+                if (cid == null) {
 
                     var categoryName = categoryList[pos].category_name
                     val intent2 = Intent(ctx, StartQuiz::class.java)
                     intent2.putExtra("categoryName", categoryName)
                     ctx.startActivity(intent2)
 
-                }else {
+                } else {
                     val intent1 = Intent(ctx, StartQuiz::class.java)
                     intent1.putExtra("category_id", cid)
                     ctx.startActivity(intent1)
@@ -68,29 +67,25 @@ class CategoryAdapter(items: ArrayList<Category>, val context: Context) : Recycl
 
 }
 
-class ViewHolder(view: View) : RecyclerView.ViewHolder(view),View.OnClickListener {
-
+class ViewHolder(view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
 
     // Holds the TextView that will add each animal to
 
-     var categoryName: TextView
-    var customItemclick : CustomItemClickListner ?= null
+    var categoryName: TextView
+    var customItemclick: CustomItemClickListner? = null
 
     init {
-        categoryName =  view.findViewById(R.id.categoryName)
+        categoryName = view.findViewById(R.id.categoryName)
         view.setOnClickListener(this)
     }
 
     fun setOnCustomItemClickListener(itemClickListner: CustomItemClickListner) {
-
         this.customItemclick = itemClickListner
     }
 
-
     override fun onClick(v: View?) {
-        this.customItemclick!!.onCustomItemClickListener(v!!,adapterPosition)
+        this.customItemclick!!.onCustomItemClickListener(v!!, adapterPosition)
     }
-
 
 
 }

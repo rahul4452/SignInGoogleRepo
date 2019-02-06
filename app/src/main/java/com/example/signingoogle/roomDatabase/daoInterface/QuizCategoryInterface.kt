@@ -23,4 +23,7 @@ interface QuizCategoryInterface {
     fun getCategoryRow(cID: Int): List<Category>
 
 
+    @Query("Select * from categoryTable where categoryName IS :cName")
+    fun getCategoryCode(cName: String?) : List<Category>
+
 }

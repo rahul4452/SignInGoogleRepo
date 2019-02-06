@@ -80,5 +80,8 @@ dependencies {
     //Top Snackbar
     implementation 'com.androidadvance:topsnackbar:1.1.1'
 
+
+    implementation 'com.github.tiagohm.MarkdownView:library:0.19.0'
+
 }
 apply plugin: 'com.google.gms.google-services'

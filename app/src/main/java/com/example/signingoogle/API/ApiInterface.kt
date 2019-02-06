@@ -17,8 +17,11 @@ interface ApiInterface {
     @GET("api.php")
     fun getQuestionList(
         @Query("amount") amt_of_ques: String?,
-        @Query("category") category: String?,
+        @Query("category") category: Int?,
         @Query("difficulty") diffcultParam: String?,
         @Query("type") type: String) : Call<QuestionResponse>
+
+    @GET("api.php")
+    fun getQuestionList(@Query("amount") amt_of_ques: String?) : Call<QuestionResponse>
 
 }
